@@ -1,7 +1,22 @@
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { getStationStatus } from './data/getStationStatus';
 
 function App() {
+  const [stationData, setStationData] = useState({});
+
+  useEffect(() => {
+    async function getData() {
+      const data = await getStationStatus();
+      setStationData(data);
+    }
+
+    getData();
+  }, []);
+
+  console.log(stationData);
+
   return (
     <div className="App">
       <header className="App-header">

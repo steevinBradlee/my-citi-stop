@@ -1,0 +1,24 @@
+{
+  "eightd_has_key_dispenser": false,
+  "region_id": "71",
+  "lon": -73.93641,
+  "eightd_station_services": [],
+  "rental_uris": {
+    "ios": "https://bkn.lft.to/lastmile_qr_scan",
+    "android": "https://bkn.lft.to/lastmile_qr_scan"
+  },
+  "short_name": "4914.03",
+  "station_type": "classic",
+  "external_id": "0575e356-72f4-4251-8e15-574cf60bd190",
+  "legacy_id": "3822",
+  "electric_bike_surcharge_waiver": false,
+  "name": "Bushwick Ave & Forrest St",
+  "station_id": "3822",
+  "capacity": 20,
+  "has_kiosk": true,
+  "rental_methods": [
+    "CREDITCARD",
+    "KEY"
+  ],
+  "lat": 40.70076
+}
