@@ -1,38 +1,58 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { getStationStatus } from './data/getStationStatus';
+import { getStationStatusById } from './data/getStationStatus';
+import { IStationInfo, IStationStatus } from './interfaces/stations';
+import { getStationInfo, getStationInfoById } from './data/getStationInfo';
+
+const steviesStop = 3822;
 
 function App() {
-  const [stationData, setStationData] = useState({});
+  const [stationStatus, setStationStatus] = useState<IStationStatus | null>(null);
+  const [stationInfo, setStationInfo] = useState<any | null>(null);
 
   useEffect(() => {
-    async function getData() {
-      const data = await getStationStatus();
-      setStationData(data);
+    async function fetchData() {
+      const statusPromise = getStationStatusById(steviesStop);
+      statusPromise.then(data => {
+        setStationStatus(data);
+      });
+
+      const infoPromise = getStationInfoById(steviesStop);
+      infoPromise.then(data => {
+        setStationInfo(data);
+      });
     }
 
-    getData();
+    fetchData();
   }, []);
 
-  console.log(stationData);
+  const isLoaded = () => {
+    
+  }
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+         {stationStatus &&
+            <div>
+              {stationInfo &&
+                <dl>
+                  <dt>Station Name: {stationInfo.name}</dt>
+                </dl>
+              }
+              {stationStatus &&
+                <dl>
+                  <dt>Station ID: {stationStatus.station_id}</dt>
+                  <dt>Bikes Available: {stationStatus.num_bikes_available}</dt>
+                  <dt>Bikes Disabled: {stationStatus.num_bikes_disabled}</dt>
+                  <dt>Docks Available: {stationStatus.num_docks_available}</dt>
+                  <dt>Docks Disabled: {stationStatus.num_docks_disabled}</dt>
+                  <dt>Ebikes Available: {stationStatus.num_ebikes_available}</dt>
+                </dl>
+             }
+            </div>
+         }
+      </div>
     </div>
   );
 }
