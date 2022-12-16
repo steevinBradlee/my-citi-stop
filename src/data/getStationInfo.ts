@@ -25,4 +25,4 @@ export const getStationInfoById = async (id: number): Promise<IStationInfo | nul
   }
 
   return station;
-}
+};
